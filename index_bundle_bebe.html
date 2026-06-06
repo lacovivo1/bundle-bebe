@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bundle Saúde do Bebê — Laço Vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pessego:     #F5C4B3;
+  --creme:       #FAECE7;
+  --ambar:       #FAC775;
+  --creme-ambar: #FAEEDA;
+  --terra:       #712B13;
+  --terra-vivo:  #F0997B;
+  --branco:      #FFF8F4;
+  --cinza:       #3D2016;
+  --cinza-l:     #A07060;
+  --terra-mid:   #8B3520;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--branco); color:var(--cinza); overflow-x:hidden; }
+
+/* ── HERO ── */
+.hero {
+  background:var(--terra);
+  position:relative; overflow:hidden;
+  padding:80px 24px 72px; text-align:center;
+}
+.hero::before {
+  content:''; position:absolute; top:-180px; right:-180px;
+  width:520px; height:520px; border-radius:50%;
+  background:var(--terra-mid); opacity:0.7; pointer-events:none;
+}
+.hero::after {
+  content:''; position:absolute; bottom:-120px; left:-120px;
+  width:360px; height:360px; border-radius:50%;
+  background:#5A1F0E; opacity:0.6; pointer-events:none;
+}
+.hero-inner { position:relative; z-index:2; max-width:720px; margin:0 auto; }
+.hero-tag {
+  display:inline-block; background:var(--ambar); color:var(--terra);
+  font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+  padding:6px 18px; border-radius:50px; margin-bottom:28px;
+  animation:fadeDown 0.6s ease both;
+}
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,6vw,70px); font-weight:700;
+  color:var(--branco); line-height:1.05; margin-bottom:16px;
+  animation:fadeDown 0.7s ease 0.1s both;
+}
+.hero h1 em { font-style:italic; color:var(--pessego); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(17px,2.5vw,23px); color:var(--pessego);
+  line-height:1.5; margin-bottom:36px;
+  animation:fadeDown 0.7s ease 0.2s both;
+}
+.hero-books {
+  display:flex; justify-content:center; gap:12px; flex-wrap:wrap;
+  margin-bottom:36px; animation:fadeDown 0.7s ease 0.3s both;
+}
+.hero-book-pill {
+  background:rgba(255,248,244,0.12); border:1px solid rgba(245,196,179,0.3);
+  color:var(--pessego); font-size:13px; font-weight:500;
+  padding:8px 18px; border-radius:50px;
+}
+.hero-price-block { animation:fadeDown 0.7s ease 0.4s both; }
+.hero-de { font-size:14px; color:var(--pessego); opacity:0.6; text-decoration:line-through; margin-bottom:4px; }
+.hero-price {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,7vw,80px); font-weight:700;
+  color:var(--ambar); line-height:1; margin-bottom:6px;
+}
+.hero-price sup { font-size:0.4em; vertical-align:super; }
+.hero-price-note { font-size:12px; color:var(--pessego); opacity:0.7; margin-bottom:32px; }
+.btn-cta {
+  display:inline-block; background:var(--terra-vivo); color:var(--terra);
+  font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  padding:18px 52px; border-radius:50px; text-decoration:none;
+  transition:transform 0.2s, box-shadow 0.2s;
+  box-shadow:0 8px 30px rgba(240,153,123,0.35);
+}
+.btn-cta:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(240,153,123,0.45); }
+.hero-guarantee { margin-top:20px; font-size:12px; color:var(--pessego); opacity:0.6; }
+
+/* ── SEÇÕES ── */
+.section { padding:72px 24px; }
+.section-inner { max-width:860px; margin:0 auto; }
+.books-section { background:var(--creme); padding:72px 24px; }
+.eyebrow { font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--terra-vivo); margin-bottom:14px; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(26px,4vw,42px); font-weight:700; color:var(--terra); line-height:1.15; margin-bottom:20px; }
+.section-title em { font-style:italic; color:var(--terra-vivo); }
+
+/* ── PARA QUEM ── */
+.pq-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:36px; }
+.pq-card {
+  background:var(--creme); border-radius:12px; padding:24px;
+  border-left:4px solid var(--terra-vivo);
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.pq-card.visible { opacity:1; transform:translateY(0); }
+.pq-card p { font-size:15px; line-height:1.65; color:var(--cinza); }
+.pq-card p::before { content:'"'; font-family:'Playfair Display',serif; font-size:28px; color:var(--terra-vivo); line-height:0; vertical-align:-10px; margin-right:4px; }
+
+/* ── LIVROS ── */
+.books-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; margin-top:48px; }
+.book-card {
+  background:var(--branco); border-radius:16px; overflow:hidden;
+  box-shadow:0 4px 24px rgba(113,43,19,0.08);
+  opacity:0; transform:translateY(24px);
+  transition:opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+}
+.book-card.visible { opacity:1; transform:translateY(0); }
+.book-card:hover.visible { transform:translateY(-3px); box-shadow:0 8px 40px rgba(113,43,19,0.14); }
+.book-cover { height:160px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.book-cover-1 { background:linear-gradient(135deg,var(--terra) 0%,var(--terra-mid) 100%); }
+.book-cover-2 { background:linear-gradient(135deg,#5A3020 0%,var(--terra) 100%); }
+.book-cover-3 { background:linear-gradient(135deg,var(--terra-mid) 0%,#9B4520 100%); }
+.book-cover::before {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:160px; height:160px; border-radius:50%;
+  background:rgba(255,248,244,0.08);
+}
+.book-cover-mock {
+  width:80px; height:108px;
+  background:var(--creme); border-radius:2px 8px 8px 2px;
+  box-shadow:-4px 4px 16px rgba(0,0,0,0.3);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:12px 10px; text-align:center; position:relative;
+}
+.book-cover-mock::before { content:''; position:absolute; left:0; top:0; bottom:0; border-radius:2px 0 0 2px; }
+.book-card:nth-child(1) .book-cover-mock::before { background:var(--terra-vivo); }
+.book-card:nth-child(2) .book-cover-mock::before { background:var(--ambar); }
+.book-card:nth-child(3) .book-cover-mock::before { background:var(--pessego); }
+.mock-top-bar { width:100%; height:2px; border-radius:1px; margin-bottom:8px; }
+.book-card:nth-child(1) .mock-top-bar { background:var(--terra-vivo); }
+.book-card:nth-child(2) .mock-top-bar { background:var(--ambar); }
+.book-card:nth-child(3) .mock-top-bar { background:var(--pessego); }
+.mock-title { font-family:'Playfair Display',serif; font-size:9px; font-weight:700; color:var(--terra); line-height:1.2; margin-bottom:6px; }
+.mock-pages { font-size:8px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-top:6px; }
+.book-card:nth-child(1) .mock-pages { color:var(--terra-vivo); }
+.book-card:nth-child(2) .mock-pages { color:var(--ambar); }
+.book-card:nth-child(3) .mock-pages { color:var(--pessego); }
+.book-body { padding:24px; }
+.book-num { font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--terra-vivo); margin-bottom:8px; }
+.book-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--terra); line-height:1.2; margin-bottom:10px; }
+.book-desc { font-size:14px; color:var(--cinza-l); line-height:1.65; margin-bottom:16px; }
+.book-topics { list-style:none; }
+.book-topics li { font-size:13px; color:var(--cinza); line-height:1.5; padding:4px 0 4px 18px; position:relative; border-bottom:1px solid var(--creme); }
+.book-topics li::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:7px; height:7px; border-radius:50%; background:var(--terra-vivo); }
+.book-ref { font-size:11px; color:var(--terra-vivo); font-weight:600; margin-top:12px; letter-spacing:1px; }
+
+/* ── BÔNUS ── */
+.bonus-section { padding:72px 24px; background:var(--branco); }
+.bonus-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; margin-top:40px; }
+.bonus-card {
+  border:1.5px solid var(--pessego); border-radius:14px; padding:24px;
+  position:relative; overflow:hidden;
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.bonus-card.visible { opacity:1; transform:translateY(0); }
+.bonus-card::before { content:''; position:absolute; top:-30px; right:-30px; width:100px; height:100px; border-radius:50%; background:var(--creme); opacity:0.5; }
+.bonus-badge { display:inline-block; background:var(--ambar); color:var(--terra); font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:4px 12px; border-radius:50px; margin-bottom:14px; }
+.bonus-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--terra); margin-bottom:10px; line-height:1.2; }
+.bonus-desc { font-size:13.5px; color:var(--cinza-l); line-height:1.6; margin-bottom:12px; }
+.bonus-value { font-size:12px; font-weight:600; color:var(--terra-vivo); }
+.bonus-value span { text-decoration:line-through; opacity:0.6; }
+
+/* ── URGÊNCIA ── */
+.urgency-section {
+  background:var(--creme-ambar); padding:48px 24px; text-align:center;
+}
+.urgency-inner { max-width:680px; margin:0 auto; }
+.urgency-title { font-family:'Playfair Display',serif; font-size:clamp(22px,3vw,34px); font-weight:700; color:var(--terra); line-height:1.2; margin-bottom:14px; }
+.urgency-title em { font-style:italic; color:var(--terra-vivo); }
+.urgency-text { font-size:16px; color:var(--cinza-l); line-height:1.7; }
+
+/* ── RESUMO ── */
+.summary-section { background:var(--terra); padding:72px 24px; position:relative; overflow:hidden; }
+.summary-section::before { content:''; position:absolute; top:-200px; right:-200px; width:500px; height:500px; border-radius:50%; background:var(--terra-mid); opacity:0.5; }
+.summary-inner { position:relative; z-index:2; max-width:720px; margin:0 auto; text-align:center; }
+.summary-title { font-family:'Playfair Display',serif; font-size:clamp(26px,4vw,44px); font-weight:700; color:var(--branco); line-height:1.1; margin-bottom:12px; }
+.summary-title em { font-style:italic; color:var(--ambar); }
+.summary-sub { font-size:16px; color:var(--pessego); line-height:1.7; margin-bottom:44px; max-width:560px; margin-left:auto; margin-right:auto; }
+.summary-items { display:flex; flex-direction:column; gap:10px; max-width:520px; margin:0 auto 44px; text-align:left; }
+.summary-item { display:flex; align-items:center; gap:14px; background:rgba(255,248,244,0.08); border:1px solid rgba(245,196,179,0.2); border-radius:10px; padding:14px 18px; }
+.summary-item-check { width:28px; height:28px; border-radius:50%; background:var(--terra-vivo); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:13px; color:var(--terra); font-weight:700; }
+.summary-item-text { font-size:14px; color:var(--pessego); line-height:1.4; }
+.summary-item-text strong { color:var(--branco); font-weight:600; display:block; }
+.summary-price-block { margin-bottom:32px; }
+.summary-de { font-size:14px; color:var(--pessego); opacity:0.5; text-decoration:line-through; margin-bottom:4px; }
+.summary-price { font-family:'Playfair Display',serif; font-size:clamp(52px,8vw,88px); font-weight:700; color:var(--ambar); line-height:1; }
+.summary-price sup { font-size:0.38em; vertical-align:super; }
+.summary-economy { display:inline-block; background:var(--ambar); color:var(--terra); font-size:12px; font-weight:700; letter-spacing:2px; padding:6px 16px; border-radius:50px; margin-top:10px; }
+.btn-cta-lg {
+  display:inline-block; background:var(--terra-vivo); color:var(--terra);
+  font-size:16px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  padding:20px 60px; border-radius:50px; text-decoration:none;
+  transition:transform 0.2s, box-shadow 0.2s;
+  box-shadow:0 10px 40px rgba(240,153,123,0.4);
+}
+.btn-cta-lg:hover { transform:translateY(-3px); box-shadow:0 14px 50px rgba(240,153,123,0.5); }
+.summary-note { font-size:12px; color:var(--pessego); opacity:0.5; margin-top:14px; }
+
+/* ── DEPOIMENTOS ── */
+.depo-section { padding:72px 24px; background:var(--creme-ambar); }
+.depo-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; margin-top:40px; }
+.depo-card { background:var(--branco); border-radius:14px; padding:28px; box-shadow:0 2px 16px rgba(113,43,19,0.07); opacity:0; transform:translateY(20px); transition:opacity 0.5s ease, transform 0.5s ease; }
+.depo-card.visible { opacity:1; transform:translateY(0); }
+.depo-stars { color:var(--ambar); font-size:16px; margin-bottom:14px; letter-spacing:2px; }
+.depo-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; color:var(--cinza); line-height:1.65; margin-bottom:18px; }
+.depo-author { font-size:12px; font-weight:600; color:var(--cinza-l); letter-spacing:1px; text-transform:uppercase; }
+
+/* ── FAQ ── */
+.faq-section { padding:72px 24px; }
+.faq-list { max-width:680px; margin:40px auto 0; display:flex; flex-direction:column; gap:12px; }
+.faq-item { border:1px solid var(--pessego); border-radius:10px; overflow:hidden; }
+.faq-q { padding:18px 22px; font-weight:600; font-size:15px; color:var(--terra); cursor:pointer; display:flex; justify-content:space-between; align-items:center; background:var(--branco); user-select:none; }
+.faq-q:hover { background:var(--creme); }
+.faq-q .icon { font-size:18px; color:var(--terra-vivo); transition:transform 0.3s; }
+.faq-item.open .faq-q .icon { transform:rotate(45deg); }
+.faq-a { max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s; font-size:14px; color:var(--cinza-l); line-height:1.7; background:var(--creme); padding:0 22px; }
+.faq-item.open .faq-a { max-height:220px; padding:16px 22px; }
+
+/* ── CTA FINAL ── */
+.cta-final { background:var(--creme); padding:80px 24px; text-align:center; }
+.cta-final-inner { max-width:620px; margin:0 auto; }
+.cta-final h2 { font-family:'Playfair Display',serif; font-size:clamp(26px,4vw,44px); font-weight:700; color:var(--terra); line-height:1.15; margin-bottom:16px; }
+.cta-final h2 em { font-style:italic; color:var(--terra-vivo); }
+.cta-final p { font-size:16px; color:var(--cinza-l); line-height:1.7; margin-bottom:36px; }
+.divider { width:60px; height:2px; background:var(--ambar); margin:0 auto 14px; }
+
+/* ── FOOTER ── */
+footer { background:var(--terra); padding:32px 24px; text-align:center; }
+footer p { font-size:12px; color:var(--pessego); opacity:0.6; line-height:1.8; }
+
+@keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+@media(max-width:600px){ .hero { padding:60px 20px 56px; } .btn-cta,.btn-cta-lg { padding:16px 36px; font-size:14px; } }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Bundle Saúde do Bebê</div>
+    <h1>Informação certa,<br>na hora <em>certa.</em></h1>
+    <p class="hero-sub">
+      Três guias completos sobre engasgo, primeiros socorros e refluxo —<br>
+      para você agir com segurança quando o tempo é curto e a cabeça trava.
+    </p>
+    <div class="hero-books">
+      <span class="hero-book-pill">Guia de Engasgo</span>
+      <span class="hero-book-pill">Primeiros Socorros</span>
+      <span class="hero-book-pill">Meu Bebê Tem Refluxo</span>
+    </div>
+    <div class="hero-price-block">
+      <div class="hero-de">De R$ 59,70</div>
+      <div class="hero-price"><sup>R$</sup>39<sup>,90</sup></div>
+      <div class="hero-price-note">pagamento único · acesso imediato · download em PDF</div>
+    </div>
+    <a href="https://pay.kiwify.com.br/3EiOxac" class="btn-cta">Quero o Bundle Agora</a>
+    <p class="hero-guarantee">✓ Compra segura &nbsp;·&nbsp; ✓ Acesso imediato &nbsp;·&nbsp; ✓ 7 dias de garantia</p>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="section">
+  <div class="section-inner">
+    <div class="eyebrow">este bundle é para você se...</div>
+    <h2 class="section-title">Você já sentiu aquele <em>frio na barriga</em><br>em alguma dessas situações?</h2>
+    <div class="pq-grid">
+      <div class="pq-card"><p>Seu bebê engasgou e você travou. Não sabia o que fazer, em que ordem, com que força.</p></div>
+      <div class="pq-card"><p>Ele teve febre às 2 da manhã e você ficou no Google por uma hora sem saber se ia ao pronto-socorro ou não.</p></div>
+      <div class="pq-card"><p>Seu bebê cospe depois de toda mamada e você não sabe se é refluxo normal ou algo que precisa de médico.</p></div>
+      <div class="pq-card"><p>Você leu tantas coisas contraditórias na internet que ficou mais confusa do que antes de pesquisar.</p></div>
+      <div class="pq-card"><p>Você quer estar preparada — não quer esperar a emergência acontecer para aprender o que fazer.</p></div>
+      <div class="pq-card"><p>Você sente que as informações que tem sobre saúde do bebê são fragmentadas e não confiáveis o suficiente.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OS 3 GUIAS -->
+<section class="books-section">
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="eyebrow" style="text-align:center;">o que você recebe</div>
+      <h2 class="section-title" style="text-align:center;">3 guias baseados em <em>evidências</em><br>para as situações que mais importam.</h2>
+    </div>
+    <div class="books-grid">
+
+      <div class="book-card">
+        <div class="book-cover book-cover-1">
+          <div class="book-cover-mock">
+            <div class="mock-top-bar"></div>
+            <div class="mock-title">Guia de<br>Engasgo</div>
+            <div class="mock-pages">13 págs</div>
+          </div>
+        </div>
+        <div class="book-body">
+          <div class="book-num">Guia 01</div>
+          <div class="book-title">Guia de Engasgo</div>
+          <div class="book-desc">O passo a passo completo para agir com segurança quando seu bebê engasgar — antes, durante e depois.</div>
+          <ul class="book-topics">
+            <li>Engasgo parcial x total: a diferença que muda tudo</li>
+            <li>Técnica de palmadas e compressões passo a passo</li>
+            <li>O que fazer se o bebê desmaiar</li>
+            <li>Quando ligar para o SAMU imediatamente</li>
+            <li>Como prevenir engasgos no dia a dia</li>
+          </ul>
+          <div class="book-ref">AHA + SBP 2025</div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover book-cover-2">
+          <div class="book-cover-mock">
+            <div class="mock-top-bar"></div>
+            <div class="mock-title">Primeiros<br>Socorros<br>p/ Bebês</div>
+            <div class="mock-pages">13 págs</div>
+          </div>
+        </div>
+        <div class="book-body">
+          <div class="book-num">Guia 02</div>
+          <div class="book-title">Primeiros Socorros para Bebês</div>
+          <div class="book-desc">Um guia completo para as emergências mais comuns nos primeiros anos — linguagem clara, sem alarmar.</div>
+          <ul class="book-topics">
+            <li>Febre: quando medicar e quando correr ao PS</li>
+            <li>Quedas e batidas na cabeça: o que observar</li>
+            <li>Queimaduras, cortes e arranhões</li>
+            <li>Convulsão febril: o que fazer enquanto espera</li>
+            <li>Intoxicação e ingestão de objetos</li>
+          </ul>
+          <div class="book-ref">SBP + Ministério da Saúde 2025</div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover book-cover-3">
+          <div class="book-cover-mock">
+            <div class="mock-top-bar"></div>
+            <div class="mock-title">Meu Bebê<br>Tem<br>Refluxo</div>
+            <div class="mock-pages">13 págs</div>
+          </div>
+        </div>
+        <div class="book-body">
+          <div class="book-num">Guia 03</div>
+          <div class="book-title">Meu Bebê Tem Refluxo</div>
+          <div class="book-desc">Entenda por que acontece, o que você pode fazer em casa e quando o pediatra precisa saber.</div>
+          <ul class="book-topics">
+            <li>Refluxo x DRGE: a diferença real</li>
+            <li>6 medidas posturais eficazes para fazer em casa</li>
+            <li>Fórmulas AR e espessantes: quando usar</li>
+            <li>Medicamentos: o que saber antes de dar</li>
+            <li>6 perguntas frequentes respondidas</li>
+          </ul>
+          <div class="book-ref">SBP + NASPGHAN 2023</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BÔNUS -->
+<section class="bonus-section">
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="eyebrow" style="text-align:center;">incluído no bundle</div>
+      <h2 class="section-title" style="text-align:center;">+ 3 bônus práticos<br><em>gratuitos</em></h2>
+      <p style="font-size:15px;color:var(--cinza-l);margin-top:8px;">Para imprimir, colar na geladeira e ter sempre à mão.</p>
+    </div>
+    <div class="bonus-grid">
+      <div class="bonus-card">
+        <div class="bonus-badge">Bônus 1</div>
+        <div class="bonus-title">Cartão de Emergência</div>
+        <div class="bonus-desc">SAMU, Bombeiros, CVV + campos para pediatra, hospital e familiares. Uma página para plastificar.</div>
+        <div class="bonus-value">Valor: <span>R$ 9,90</span> · Grátis no bundle</div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-badge">Bônus 2</div>
+        <div class="bonus-title">Checklist da Bolsa do Bebê</div>
+        <div class="bonus-desc">35 itens em 5 categorias para nunca sair sem o essencial — incluindo itens para a mãe.</div>
+        <div class="bonus-value">Valor: <span>R$ 9,90</span> · Grátis no bundle</div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-badge">Bônus 3</div>
+        <div class="bonus-title">Tabela de Febre por Idade</div>
+        <div class="bonus-desc">O que fazer em cada temperatura, por faixa etária. Com tabela de antitérmicos e sinais de alerta. Baseado na SBP 2023.</div>
+        <div class="bonus-value">Valor: <span>R$ 9,90</span> · Grátis no bundle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGÊNCIA -->
+<section class="urgency-section">
+  <div class="urgency-inner">
+    <h2 class="urgency-title">O melhor momento para aprender<br>é <em>antes</em> de precisar.</h2>
+    <p class="urgency-text">Emergências não avisam. Engasgo acontece em segundos. Febre aparece à meia-noite. Refluxo começa na primeira semana. Ter a informação certa guardada no celular — antes de precisar — é o maior presente que você pode dar para o seu filho.</p>
+  </div>
+</section>
+
+<!-- RESUMO + CTA -->
+<section class="summary-section" id="comprar">
+  <div class="summary-inner">
+    <div class="eyebrow" style="color:var(--ambar);text-align:center;">tudo que você leva</div>
+    <h2 class="summary-title">Bundle Saúde do Bebê<br>completo por <em>R$ 39,90</em></h2>
+    <p class="summary-sub">Informação confiável para os momentos que mais importam — quando o tempo é curto e a cabeça trava.</p>
+    <div class="summary-items">
+      <div class="summary-item">
+        <div class="summary-item-check">✓</div>
+        <div class="summary-item-text"><strong>Guia de Engasgo (13 páginas)</strong>Passo a passo completo baseado em AHA + SBP 2025</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-check">✓</div>
+        <div class="summary-item-text"><strong>Primeiros Socorros para Bebês (13 páginas)</strong>As emergências mais comuns com linguagem clara</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-check">✓</div>
+        <div class="summary-item-text"><strong>Meu Bebê Tem Refluxo (13 páginas)</strong>Do diagnóstico ao tratamento com segurança</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-check">+</div>
+        <div class="summary-item-text"><strong>Bônus 1 — Cartão de Emergência</strong>Para plastificar e ter sempre à mão</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-check">+</div>
+        <div class="summary-item-text"><strong>Bônus 2 — Checklist da Bolsa</strong>35 itens para nunca sair sem o essencial</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-check">+</div>
+        <div class="summary-item-text"><strong>Bônus 3 — Tabela de Febre</strong>Por idade, com antitérmicos e sinais de alerta</div>
+      </div>
+    </div>
+    <div class="summary-price-block">
+      <div class="summary-de">De R$ 59,70</div>
+      <div class="summary-price"><sup>R$</sup>39<sup>,90</sup></div>
+      <div class="summary-economy">Você economiza R$ 19,80 — 33% off</div>
+    </div>
+    <a href="https://pay.kiwify.com.br/3EiOxac" class="btn-cta-lg">Comprar Agora com Segurança</a>
+    <p class="summary-note">Pagamento seguro via Kiwify · Cartão, Pix ou boleto · Acesso imediato</p>
+    <p class="summary-note" style="margin-top:8px;">7 dias de garantia — se não gostar, devolvemos 100% do valor.</p>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depo-section">
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="eyebrow" style="text-align:center;">o que as mães dizem</div>
+      <h2 class="section-title" style="text-align:center;">Palavras de quem<br>já <em>usou</em> na prática</h2>
+    </div>
+    <div class="depo-grid">
+      <div class="depo-card">
+        <div class="depo-stars">★★★★★</div>
+        <p class="depo-text">"Meu filho engasgou com banana na introdução alimentar. Lembrei do passo a passo do guia e consegui agir. Esse material é obrigatório para toda mãe."</p>
+        <div class="depo-author">Mariana S. · mãe de 8 meses</div>
+      </div>
+      <div class="depo-card">
+        <div class="depo-stars">★★★★★</div>
+        <p class="depo-text">"A tabela de febre do bônus fica colada na minha geladeira. Na primeira febre do meu filho eu sabia exatamente o que fazer — sem entrar em pânico."</p>
+        <div class="depo-author">Patrícia L. · mãe de 5 meses</div>
+      </div>
+      <div class="depo-card">
+        <div class="depo-stars">★★★★★</div>
+        <p class="depo-text">"Finalmente entendi a diferença entre refluxo normal e DRGE. Cheguei na consulta com as perguntas certas e o pediatra ficou surpreso com meu nível de informação."</p>
+        <div class="depo-author">Camila R. · mãe de 3 meses</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--cinza-l);margin-top:24px;font-style:italic;">* Depoimentos ilustrativos baseados em experiências reais de mães.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="eyebrow" style="text-align:center;">dúvidas frequentes</div>
+      <h2 class="section-title" style="text-align:center;">Perguntas que<br>as mães <em>fazem</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Como recebo os materiais após a compra? <span class="icon">+</span></div>
+        <div class="faq-a">Imediatamente após a confirmação do pagamento você recebe um e-mail com o link para acessar sua área de membros e baixar todos os PDFs. O acesso é vitalício.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Os guias substituem o pediatra? <span class="icon">+</span></div>
+        <div class="faq-a">Não. Todos os materiais são educativos e baseados nas principais diretrizes pediátricas (SBP, AHA, Ministério da Saúde). Eles complementam — mas não substituem — o acompanhamento do seu pediatra. Em caso de dúvida, sempre consulte um profissional.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Posso imprimir os materiais? <span class="icon">+</span></div>
+        <div class="faq-a">Sim! Todos os PDFs foram criados para funcionar bem impressos e em tela. Os bônus foram especialmente pensados para serem impressos — o Cartão de Emergência pode ser plastificado e colado na geladeira.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">As informações são atualizadas? <span class="icon">+</span></div>
+        <div class="faq-a">Sim. Os guias são baseados nas diretrizes mais recentes: AHA e SBP 2025 para engasgo e primeiros socorros, SBP e NASPGHAN 2023 para refluxo, e Ministério da Saúde 2022-2025 para febre e cuidados gerais.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Existe garantia? <span class="icon">+</span></div>
+        <div class="faq-a">Sim. Você tem 7 dias a partir da compra para pedir o reembolso completo, sem burocracia e sem precisar explicar o motivo. Basta entrar em contato pelo Instagram @lacovivo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final-inner">
+    <div class="divider"></div>
+    <h2>Conhecimento salva vidas.<br>Comece a se <em>preparar</em> hoje.</h2>
+    <p>Você não precisa esperar o engasgo acontecer para aprender o que fazer. Nem pesquisar no Google às 2 da manhã com o bebê febril. A informação certa, agora, no seu celular.</p>
+    <a href="https://pay.kiwify.com.br/3EiOxac" class="btn-cta-lg" style="background:var(--terra);color:var(--branco);">Quero o Bundle por R$ 39,90</a>
+    <p style="font-size:12px;color:var(--cinza-l);margin-top:16px;">7 dias de garantia · Acesso imediato · Pagamento seguro</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong style="color:var(--pessego);font-family:'Playfair Display',serif;font-size:16px;">Laço Vivo</strong><br>
+    @lacovivo · maternidade com acolhimento e informação de verdade<br><br>
+    Este material é de caráter educativo e não substitui acompanhamento médico ou pediátrico.<br>
+    Em caso de emergência: SAMU 192 · Bombeiros 193
+  </p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.pq-card,.book-card,.bonus-card,.depo-card').forEach(el => obs.observe(el));
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
